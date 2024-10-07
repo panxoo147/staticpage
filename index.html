@@ -43,7 +43,7 @@
         overflow: hidden;
         padding: 20px;
         transition: background-color 0.5s ease; /* Smooth transition for background */
-        color: #333; /* Default text color */
+        color: #838383; /* Default text color */
       }
       body.dark-mode {
         background-color: #2c2c2c; /* Dark mode background */
@@ -101,6 +101,21 @@
         color: #3498db !important;
         transition: transform 0.5s ease, opacity 0.5s ease, color 0.5s ease;
       }
+
+      .watermark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('./SEC_Thailand_Logo.svg.png');
+        background-size: 300px; 
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.2; 
+        pointer-events: none; /* Allow interaction with underlying content */
+        z-index: 0;
+      }
       @keyframes slideIn {
         0% {
           opacity: 0;
@@ -131,7 +146,8 @@
     </style>
   </head>
   <body>
-    <div class="container-sm">
+    <div class="watermark"></div>
+    <div class="container">
       <div class="date" id="currentDate" style="color: #1b5780"></div>
       <strong style="font-size: 30px; color: #015b97"
         >Architect committee</strong

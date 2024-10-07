@@ -112,7 +112,6 @@
     
     <button class="toggle-button" id="toggleMode">
       <i class="fas fa-sun"></i> <!-- Sun icon for light mode -->
-      Switch to Dark Mode
     </button>
     <div id="topicsContainer"></div>
 
@@ -231,9 +230,9 @@
         
         // Change button icon and text based on the mode
         if (document.body.classList.contains('dark-mode')) {
-          toggleButton.innerHTML = '<i class="fas fa-moon"></i> Switch to Light Mode';
+          toggleButton.innerHTML = '<i class="fas fa-moon"></i> ';
         } else {
-          toggleButton.innerHTML = '<i class="fas fa-sun"></i> Switch to Dark Mode';
+          toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
         }
 
         // Update text color for all elements based on mode

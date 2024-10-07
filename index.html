@@ -173,18 +173,18 @@
         //   span.textContent = letter;
         //   topicDiv.appendChild(span);
         // });
-        const characters = topic.topic.split(/(\s+)/); // Split by space but keep spaces
+        const characters = topic.topic.split(/(?=[a-zA-Z])|(?<=[a-zA-Z])|(?=\s)|(?<=\s)/); // Split by space but keep spaces
 
-            characters.forEach((char) => {
-              if(char == ' '){
-
-              }else{
-                const span = document.createElement("span");
-                span.textContent = char;
-                topicDiv.appendChild(span);
-              }
-                // Create a span for each character or space
-            });
+        characters.forEach((char) => {
+          const span = document.createElement("span");
+          // Check if char is a space or an English letter
+          if (char === ' ') {
+              span.innerHTML = '&nbsp;'; // Use &nbsp; for visual representation
+          } else {
+              span.textContent = char; // Set the character as text
+          }
+          topicDiv.appendChild(span);
+        });
         if (topic.time) {
           const divTime = document.createElement("div");
           topicDiv.appendChild(divTime);

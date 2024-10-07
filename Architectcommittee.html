@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Architect committee</title>
+    <style>
+      body {
+        font-family: "IBM Plex Sans Thai Looped", sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        overflow: hidden;
+        padding: 20px;
+      }
+      .card {
+        background-color: white;
+        border-radius: 3px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 10px;
+        text-align: center;
+      }
+      h1 {
+        margin: 10px;
+      }
+      .topic {
+        position: relative;
+        display: inline-block;
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+      .topic span {
+        display: inline-block;
+        margin: 0 0.5px;
+        font-size: 16px;
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+      @keyframes slideIn {
+        0% {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
+    <div style="margin:10px;display: flex;align-items: center;">
+        <div style="display: flex; flex-direction: column">
+          <strong style="font-size: 30px;color:#015b97">Architect committee</strong>
+          <div class="date" id="currentDate" style="color:#1b5780"></div>
+        </div>
+    </div>
+  </head>
+  <body>
+
+    <div id="topicsContainer"></div>
+
+    <script>
+      // Array of static topic names
+      const topics = [
+        "MITRE       ATT&CK     framework      และ      incident      response",
+        "Guidline       การปรับระบบเพื่อรองรับ       SSO       :       โดย       อ๊อฟ,       จิน",
+      ];
+
+      const topicsContainer = document.getElementById("topicsContainer");
+
+      // Create a card for each topic dynamically
+      topics.forEach((topic) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        const topicDiv = document.createElement("div");
+        topicDiv.classList.add("topic");
+
+        // Create a span for each letter in the topic name
+        topic.split("").forEach((letter) => {
+          const span = document.createElement("span");
+          span.textContent = letter;
+          topicDiv.appendChild(span);
+        });
+        // card.style.animationDelay = `${index * 0.5}s`;
+        card.appendChild(topicDiv);
+        topicsContainer.appendChild(card);
+        animateLetters(topicDiv);
+      });
+
+      // Function to animate letters
+      function animateLetters(topicDiv) {
+        const spans = topicDiv.querySelectorAll("span");
+
+        // Fade in the entire topic
+        setTimeout(() => {
+          topicDiv.style.opacity = 1; // Fade in the entire topic
+        }, 100); // Delay for the entire topic to fade in
+        spans.forEach((span) => {
+          const randomDirection = Math.floor(Math.random() * 8); // Random direction (0-7)
+          const randomX = Math.random() * 200 - 100; // Random X offset
+          const randomRotate = Math.random() * 720 - 360; // Random rotation
+          const randomDuration = Math.random() * 1.5 + 1.5; // Random duration between 1.5s and 3s
+          const randomColor = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random color
+
+          // Set random translation based on direction
+          let translateX = 0;
+          let translateY = 0;
+
+          switch (randomDirection) {
+            case 0: // From Top
+              translateY = Math.random() * -1000 - 50;
+              break;
+            case 1: // From Bottom
+              translateY = Math.random() * 1000 + 50;
+              break;
+            case 2: // From Left
+              translateX = Math.random() * -1000 - 50;
+              break;
+            case 3: // From Right
+              translateX = Math.random() * 1000 + 50;
+              break;
+            case 4: // From Top-Left
+              translateX = Math.random() * -1000 - 50;
+              translateY = Math.random() * -1000 - 50;
+              break;
+            case 5: // From Top-Right
+              translateX = Math.random() * 1000 + 50;
+              translateY = Math.random() * -1000 - 50;
+              break;
+            case 6: // From Bottom-Left
+              translateX = Math.random() * -1000 - 50;
+              translateY = Math.random() * 1000 + 50;
+              break;
+            case 7: // From Bottom-Right
+              translateX = Math.random() * 1000 + 50;
+              translateY = Math.random() * 1000 + 50;
+              break;
+          }
+
+          span.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${randomRotate}deg)`;
+          span.style.animationDuration = `${randomDuration}s`;
+          span.style.animationDelay = `${Math.random() * 0.5}s`;
+          span.style.opacity = 1;
+          span.style.color = "#3498db";
+          span.style.fontWeight = 600;
+          setTimeout(() => {
+            span.style.transform = "translate(0, 0) rotate(0deg)";
+            span.style.opacity = 1;
+          }, 300);
+        });
+      }
+      function formatDate() {
+        const options = {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          weekday: "long",
+          locale: "th-TH",
+        };
+        const date = new Date();
+        const thaiDate = date.toLocaleDateString("th-TH", options);
+        return `${thaiDate}`;
+      }
+      document.getElementById('currentDate').textContent = formatDate();
+    </script>
+  </body>
+</html>
